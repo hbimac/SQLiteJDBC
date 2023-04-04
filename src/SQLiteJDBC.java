@@ -5,10 +5,10 @@ import java.sql.Statement;
 
 public class SQLiteJDBC {
     public static void main(String[] args) {
-        Connection c = null;
+        Connection con = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            con = DriverManager.getConnection("jdbc:sqlite:imac.db");
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -19,15 +19,15 @@ public class SQLiteJDBC {
 
     private static void CreateTable() {
 
-        Connection c = null;
+        Connection con = null;
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:test.db");
-            c.setAutoCommit(false);
+            con = DriverManager.getConnection("jdbc:sqlite:imac.db");
+            con.setAutoCommit(false);
             System.out.println("Opened database successfully");
 
-            stmt = c.createStatement();
+            stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM COMPANY;");
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -44,7 +44,7 @@ public class SQLiteJDBC {
             }
             rs.close();
             stmt.close();
-            c.close();
+            con.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
